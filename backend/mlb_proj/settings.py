@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'coresheaders',
+    'corsheaders',
     'mlb_auth',
     'mlb_app',
 ]
