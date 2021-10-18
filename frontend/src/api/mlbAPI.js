@@ -9,6 +9,14 @@ const getInit = (token) => {
   };
 };
 
+const getNoToken = () => {
+  return {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+};
+
 const tryCatchFetch = async (url, init) => {
   try {
     let response = await fetch(url, init);
@@ -48,10 +56,16 @@ const getLeagueById = async (leagueId, token) => {
   return await tryCatchFetch(url, getInit(token));
 };
 
+const getDivisionById = async (divisionId) => {
+  let url = `${BASE_URL}api/divisions/${divisionId}/`;
+  return await tryCatchFetch(url, getNoToken());
+};
+
 const myExports = {
   doLogin,
   getLeagues,
   getLeagueById,
+  getDivisionById,
 };
 
 export default myExports;

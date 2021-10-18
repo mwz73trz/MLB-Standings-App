@@ -2,18 +2,17 @@ import { Component } from "react";
 import mlbAPI from "../api/mlbAPI";
 import UserContext from "../contexts/UserContext";
 
-class LeagueStandingsPage extends Component {
+class DivisionStandingsPage extends Component {
   state = {
-    league: null,
+    division: null,
   };
 
-  async getLeague() {
+  async getDivision() {
     try {
-      let leagueId = this.props.match.params.leagueId;
-      let token = this.context ? this.context.token : null;
-      let leagueData = await mlbAPI.getLeagueById(leagueId, token);
-      if (leagueData) {
-        this.setState({ league: leagueData });
+      let divisionId = this.props.match.params.divisionId;
+      let divisionData = await mlbAPI.getDivisionById(divisionId);
+      if (divisionData) {
+        this.setState({ division: divisionData });
       }
     } catch (error) {
       console.log(error);
@@ -21,17 +20,18 @@ class LeagueStandingsPage extends Component {
   }
 
   componentDidMount() {
-    this.getLeague();
+    this.getDivision();
   }
 
   renderTeams() {
-    let teamElements = this.state.league.teams.map((team, index) => {
+    let teamElements = this.state.division.teams.map((team, index) => {
       return (
         <tbody key={`team-${index}`}>
           <tr>
             <td>{team.name}</td>
             <td>{team.wins}</td>
             <td>{team.losses}</td>
+            <td>{team.ties}</td>
           </tr>
         </tbody>
       );
@@ -40,9 +40,10 @@ class LeagueStandingsPage extends Component {
       <table border="1">
         <thead>
           <tr>
-            <th>Team</th>
+            <th>Name</th>
             <th>Wins</th>
             <th>Losses</th>
+            <th>Ties</th>
           </tr>
         </thead>
         {teamElements}
@@ -50,13 +51,13 @@ class LeagueStandingsPage extends Component {
     );
   }
 
-  renderLeagueStanding() {
-    if (!this.state.league) {
+  renderDivision() {
+    if (!this.state.division) {
       return <p>No Teams Found!</p>;
     }
     return (
       <div>
-        <h1>{this.state.league.name}</h1>
+        <h1>{this.state.division.name}</h1>
         {this.renderTeams()}
       </div>
     );
@@ -65,13 +66,13 @@ class LeagueStandingsPage extends Component {
   render() {
     return (
       <div>
-        <h1>League Standings Page</h1>
-        {this.renderLeagueStanding()}
+        <h1>Division Standings Page</h1>
+        {this.renderDivision()}
       </div>
     );
   }
 }
 
-LeagueStandingsPage.contextType = UserContext;
+DivisionStandingsPage.contextType = UserContext;
 
-export default LeagueStandingsPage;
+export default DivisionStandingsPage;

@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import LeagueStandingsPage from "./pages/LeagueStandingsPage";
+import LeagueDivisionsPage from "./pages/LeagueDivisionsPage";
+import DivisionStandingsPage from "./pages/DivisionStandingsPage";
 import UserContext from "./contexts/UserContext";
 
 class App extends Component {
@@ -31,6 +33,16 @@ class App extends Component {
                 path="/leagues/:leagueId"
                 exact
                 component={LeagueStandingsPage}
+              />
+              <Route
+                path="/leagues/:leagueId"
+                exact
+                component={LeagueDivisionsPage}
+              />
+              <Route
+                path="/divisions/:divisionId"
+                exact
+                component={DivisionStandingsPage}
               />
             </div>
           </UserContext.Provider>
