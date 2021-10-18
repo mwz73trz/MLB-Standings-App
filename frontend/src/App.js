@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Component } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import LeagueStandingsPage from "./pages/LeagueStandingsPage";
+import UserContext from "./contexts/UserContext";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    user: null,
+  };
+
+  updateUser = (newUserData) => {
+    this.setState({ user: newUserData });
+  };
+
+  renderLoginPage = (routeProps) => {
+    return <LoginPage {...routeProps} completeLogin={this.updateUser} />;
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <Router>
+          <UserContext.Provider value={this.state.user}>
+            <div>
+              <Route path="/" exact component={HomePage} />
+              <Route path="/login" exact render={this.renderLoginPage} />
+              <Route
+                path="/leagues/:leagueId"
+                exact
+                component={LeagueStandingsPage}
+              />
+            </div>
+          </UserContext.Provider>
+        </Router>
+      </div>
+    );
+  }
 }
 
 export default App;

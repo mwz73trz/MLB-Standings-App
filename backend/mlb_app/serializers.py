@@ -6,7 +6,7 @@ class LeagueSerializer(ModelSerializer):
     class Meta:
         model = League
         fields = ['id', 'name', 'user', 'divisions', 'teams']
-        depth = 1
+        depth = 2
 
     user = StringRelatedField()
 
