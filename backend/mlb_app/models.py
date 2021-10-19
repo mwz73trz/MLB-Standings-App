@@ -11,6 +11,7 @@ class League(models.Model):
 class Division(models.Model):
     name = models.CharField(max_length=150)
     league = models.ForeignKey(League, on_delete=models.CASCADE, related_name="divisions")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="divisions")
 
     def __str__(self):
         return f"{self.name}"

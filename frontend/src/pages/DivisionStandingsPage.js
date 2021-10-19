@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { Link } from "react-router-dom";
 import mlbAPI from "../api/mlbAPI";
 import UserContext from "../contexts/UserContext";
 
@@ -10,7 +11,8 @@ class DivisionStandingsPage extends Component {
   async getDivision() {
     try {
       let divisionId = this.props.match.params.divisionId;
-      let divisionData = await mlbAPI.getDivisionById(divisionId);
+      let token = this.context ? this.context.token : null;
+      let divisionData = await mlbAPI.getDivisionById(divisionId, token);
       if (divisionData) {
         this.setState({ division: divisionData });
       }
@@ -31,7 +33,9 @@ class DivisionStandingsPage extends Component {
             <td>{team.name}</td>
             <td>{team.wins}</td>
             <td>{team.losses}</td>
-            <td>{team.ties}</td>
+            <td>
+              <Link to={`/teams/${team.id}`}>Update</Link>
+            </td>
           </tr>
         </tbody>
       );
@@ -43,7 +47,6 @@ class DivisionStandingsPage extends Component {
             <th>Name</th>
             <th>Wins</th>
             <th>Losses</th>
-            <th>Ties</th>
           </tr>
         </thead>
         {teamElements}

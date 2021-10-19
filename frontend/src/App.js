@@ -6,6 +6,7 @@ import LoginPage from "./pages/LoginPage";
 import LeagueStandingsPage from "./pages/LeagueStandingsPage";
 import LeagueDivisionsPage from "./pages/LeagueDivisionsPage";
 import DivisionStandingsPage from "./pages/DivisionStandingsPage";
+import TeamDataPage from "./pages/TeamDataPage";
 import UserContext from "./contexts/UserContext";
 
 class App extends Component {
@@ -44,6 +45,7 @@ class App extends Component {
                 exact
                 component={DivisionStandingsPage}
               />
+              <Route path="/teams/:teamId" exact component={TeamDataPage} />
             </div>
           </UserContext.Provider>
         </Router>

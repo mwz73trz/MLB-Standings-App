@@ -1,6 +1,5 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
-// import { Link } from "react-router-dom";
 import mlbAPI from "../api/mlbAPI";
 import UserContext from "../contexts/UserContext";
 

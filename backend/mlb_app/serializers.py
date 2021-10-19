@@ -13,7 +13,7 @@ class LeagueSerializer(ModelSerializer):
 class DivisionSerializer(ModelSerializer):
     class Meta:
         model = Division
-        fields = ['id', 'name', 'teams']
+        fields = ['id', 'name', 'user', 'teams']
         depth = 1
 
 class TeamSerializer(ModelSerializer):

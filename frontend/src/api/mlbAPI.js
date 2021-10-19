@@ -9,14 +9,6 @@ const getInit = (token) => {
   };
 };
 
-const getNoToken = () => {
-  return {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-};
-
 const tryCatchFetch = async (url, init) => {
   try {
     let response = await fetch(url, init);
@@ -56,9 +48,22 @@ const getLeagueById = async (leagueId, token) => {
   return await tryCatchFetch(url, getInit(token));
 };
 
-const getDivisionById = async (divisionId) => {
+const getDivisionById = async (divisionId, token) => {
   let url = `${BASE_URL}api/divisions/${divisionId}/`;
-  return await tryCatchFetch(url, getNoToken());
+  return await tryCatchFetch(url, getInit(token));
+};
+
+const getTeamById = async (teamId, token) => {
+  let url = `${BASE_URL}api/teams/${teamId}/`;
+  return await tryCatchFetch(url, getInit(token));
+};
+
+const updateTeamData = async (teamId, updatedTeam, token) => {
+  let url = `${BASE_URL}api/teams/${teamId}/`;
+  let init = getInit(token);
+  init["method"] = "PUT";
+  init["body"] = JSON.stringify(updatedTeam);
+  return await tryCatchFetch(url, init);
 };
 
 const myExports = {
@@ -66,6 +71,8 @@ const myExports = {
   getLeagues,
   getLeagueById,
   getDivisionById,
+  getTeamById,
+  updateTeamData,
 };
 
 export default myExports;
